@@ -18,14 +18,9 @@ class BoeDriver:
     # Structure: speed_value: [left_corr, right_corr, approx m/s] <-- TODO
     #    These likely need to be calculated manually...
 
-    SPEED_FACTORS = {1: [0.034, 0.014],
-                     2: [0.045, 0.021],
-                     3: [0.066, 0.033],
-                     4: [0.083, 0.041],
-                     5: [0.099, 0.049],
-                     6: [0.116, 0.057],
-                     7: [0.132, 0.066],
-                     8: [0.148, 0.074]}
+    SPEED_FACTORS = {1: [0.034, 0.020],
+                     2: [0.066, 0.050],
+                     3: [0.110, 0.070]}
 
     def __init__(self):
         '''
@@ -35,7 +30,7 @@ class BoeDriver:
         # Assuming a 16-ch board, though 8ch is an option, also.
         self.kit = ServoKit(channels=16)
 
-        self.speed = 4      #Default speed
+        self.speed = 1      #Default speed
         self.latency = 1.0  #Latency: wait between executing moves.
         self.def_sec = 0.5      #Unless otherwise noted, move for 1sec.
 
