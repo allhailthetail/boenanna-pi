@@ -5,7 +5,6 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from PiBoe.chassis import BoeDriver
-#print(sys.path)
 
 # Test camera:
 def main():
