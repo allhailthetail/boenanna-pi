@@ -1,9 +1,12 @@
 #!../venv/bin/python3
 
 import time
+import sys
 import pdb
 from adafruit_servokit import ServoKit
 
+# DEFINE DRIVER FILE:
+DRIVER_FILE = "/home/matthew/BOE_DRIVER_FILE"
 # CONSTANT VARS:
 DEF_SEC = 1.0    # Only allow bot to move for 0.5 sec if not specified...
 DEF_CAM_ANGLE = 90
@@ -195,15 +198,69 @@ def main():
     # Instantiate the bot driver:
     Driver = BoeDriver()
 
-    print("Welcome to Driver Interactive Console...\n\n")
-    pdb.set_trace()
+    while True:
+        # Step 1 - Check if file has lines
+        with open(DRIVER_FILE, 'r+') as f:
 
-    # Example Code:
-    #    Driver._set_speed(newspeed= 3)
-    #    Driver.foreward(sec= 5)
-    #    Driver.reverse(sec= 5)
-    #    Driver.yaw(sec= 10)
-    #    Driver.yaw(clockwise= False, sec= 10)
+            # Open and read any lines present.
+            # Erase contents and close ASAP so it's available for writes...
+
+            commands = f.read().splitlines()
+            f.seek(0)
+            f.truncate()
+            f.close()
+
+            # skip to next iteration if file was empty:
+            if len(commands) == 0:
+                continue
+
+            # Command length should always be 3...
+            elif len(commands) == 3:
+                # Parse commands and send to Driver...
+                if commands[0] == "yawcw":
+                    # Format:
+                    #    yawcw
+                    #    speed 1-3
+                    #    duration(s)
+                    Driver._set_speed(newspeed=int(commands[1]))
+                    Driver.yaw(clockwise=True, sec=int(commands[2]))
+                if commands[0] == "yawccw":
+                    # Format:
+                    #    yawccw
+                    #    speed 1-3
+                    #    duration(s)
+                    Driver._set_speed(newspeed=int(commands[1]))
+                    Driver.yaw(clockwise=False, sec=int(commands[2]))
+                if commands[0] == "foreward":
+                    # Format:
+                    #    foreward
+                    #    speed 1-3
+                    #    duration(s)
+                    Driver._set_speed(newspeed=int(commands[1]))
+                    Driver.foreward(sec=int(commands[2]))
+                if commands[0] == "reverse":
+                    # Format:
+                    #    reverse
+                    #    speed 1-3
+                    #    duration(s)
+                    Driver._set_speed(newspeed=int(commands[1]))
+                    Driver.reverse(sec=int(commands[2]))
+                if commands[0] == "camcw":
+                    # Format:
+                    #    camcw
+                    #    degrees
+                    #    0/1 reset
+                    Driver.yaw_cam(clockwise=True, deg_increment=int(commands[1]), reset=int(commands[2]))
+                if commands[0] == "camccw":
+                    # Format:
+                    #    camccw
+                    #    degrees
+                    #    0/1 reset
+                    Driver.yaw_cam(clockwise=False, deg_increment=int(commands[1]), reset=int(commands[2]))
+            else:
+                print(f"Bad Directive Given, ignored... {commands}", file=sys.stderr)
+            time.sleep(3.0)
+
 
 if __name__ == "__main__":
     main()

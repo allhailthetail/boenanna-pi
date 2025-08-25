@@ -4,7 +4,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from PiBoe.chassis import BoeDriver
+from python.PiBoe.chassis import BoeDriver
 
 #print(sys.path)
 
@@ -20,13 +20,13 @@ def main():
 
     # Test out speeds 1-8:
     #    (just change range)
-    for i in range(7,8):
+    for i in range(1,3):
         print(f"Testing for Speed: {i}")
         Driver._set_speed(newspeed = i)
         back_and_forth(Driver)
 
     # Test out yaw:
-    Driver._set_speed(newspeed = 4)
+    Driver._set_speed(newspeed = 2)
     Driver.yaw(clockwise=True, sec=10)
     Driver.yaw(clockwise=False, sec=10)
 

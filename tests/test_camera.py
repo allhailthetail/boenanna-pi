@@ -4,7 +4,12 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+<<<<<<< HEAD
 from PiBoe.chassis import BoeDriver
+=======
+from python.PiBoe.chassis import BoeDriver
+#print(sys.path)
+>>>>>>> 90fac63 (Moved lib in prep for new cpp code)
 
 # Test camera:
 def main():
