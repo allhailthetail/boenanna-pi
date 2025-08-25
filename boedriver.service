@@ -1,0 +1,14 @@
+[Unit]
+Description=PiBOE Driver Userspace Service
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/chassisDaemon %h/BOE_DRIVER_FILE
+Restart=always
+RestartSec=1s
+StandardOutput=append:%h/BOEDRIVER_log
+StandardError=append:%h/BOEDRIVER_errlog
+
+[Install]
+WantedBy=default.target
+
