@@ -4,6 +4,7 @@ Raspberry Pi controlling a BOE Bot chassis
 [Chassis Driver Demonstration](https://youtu.be/iw_Xe_JajT4?si=0qx1W1s7F3d5nseO)
 
 [3D-printed Base](https://www.thingiverse.com/thing:1562194)
+> Credit: tjredhawke - thingiverse 2016
 
 # Preparing the Pi:
 - Install rpi x64 OS
@@ -56,3 +57,10 @@ systemctl --user daemon-reload
 # enable service
 systemctl --user enable --now boedriver.service
 ```
+
+# Options in the Makefile:
+- python_config_venv -> configure the python venv automatically
+- test_chassis_lib -> build a test program to trim servos and verify library functionality
+- chassisDaemon -> Builds the chassis daemon only (no install)
+- install
+- clean
